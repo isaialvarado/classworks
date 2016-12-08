@@ -1,0 +1,13 @@
+<h1>Create New Account</h1>
+
+<form action="<%= users_url %>" method="post">
+  <%= csrf_token %>
+
+  <label for="email">Email</label>
+  <input type="text" name="user[email]" value="">
+
+  <label for="password">Password</label>
+  <input type="text" name="user[password]" value="">
+
+  <%= submit_button %>
+</form>

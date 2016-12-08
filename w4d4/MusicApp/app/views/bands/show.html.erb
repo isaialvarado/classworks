@@ -1,0 +1,12 @@
+<h1><%= @band.name.upcase %></h1>
+
+<h2>Albums</h2>
+<%= render 'shared/list', list: @band.albums %>
+
+<h2>Links</h2>
+<ul>
+  <li><%= link_to 'Add Album', new_band_album_url(@band)%></li>
+  <li><%= link_to 'Edit Band', edit_band_url(@band)%></li>
+  <li><%= link_to 'Delete Band', band_url(@band), method: :delete%></li>
+  <li><%= link_to 'All Bands', bands_url%></li>
+</ul>
