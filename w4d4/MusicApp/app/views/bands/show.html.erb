@@ -1,7 +1,7 @@
 <h1><%= @band.name.upcase %></h1>
 
 <h2>Albums</h2>
-<%= render 'shared/list', list: @band.albums %>
+<%= render 'shared/list', list: @band.albums, folder: 'albums' %>
 
 <h2>Links</h2>
 <ul>

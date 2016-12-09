@@ -11,16 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161208183430) do
+ActiveRecord::Schema.define(version: 20161208232232) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "albums", force: :cascade do |t|
     t.string   "name",       null: false
     t.integer  "band_id",    null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "album_type", null: false
+    t.integer  "year",       null: false
   end
 
-  add_index "albums", ["band_id"], name: "index_albums_on_band_id"
+  add_index "albums", ["band_id"], name: "index_albums_on_band_id", using: :btree
 
   create_table "bands", force: :cascade do |t|
     t.string   "name",       null: false
@@ -35,7 +40,7 @@ ActiveRecord::Schema.define(version: 20161208183430) do
     t.datetime "updated_at"
   end
 
-  add_index "tracks", ["album_id"], name: "index_tracks_on_album_id"
+  add_index "tracks", ["album_id"], name: "index_tracks_on_album_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",           null: false
@@ -45,7 +50,7 @@ ActiveRecord::Schema.define(version: 20161208183430) do
     t.datetime "updated_at"
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
-  add_index "users", ["session_token"], name: "index_users_on_session_token", unique: true
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["session_token"], name: "index_users_on_session_token", unique: true, using: :btree
 
 end

@@ -1,0 +1,66 @@
+<h1><%= @band.name.upcase %></h1>
+<h2><%= action %> Album</h2>
+
+<% if action == "Edit" %>
+  <% action_url = album_url(album) %>
+<% else %>
+  <% action_url = albums_url %>
+<% end %>
+
+<form action="<%= action_url %>" method="post">
+  <%= csrf_token %>
+  <% if action == "Edit" %>
+    <input type="hidden" name="_method" value="patch">
+  <% end %>
+  <label for="name">Album Name</label>
+  <input type="text" id="name" name="album[name]" value="<%= album.name %>" >
+
+  <br>
+  <br>
+
+  <label for="band">Band</label>
+  <select name="album[band_id]" id="band">
+    <% Band.all.each do |band| %>
+      <option
+      <%= band.id == @band.id  ? "selected" : "" %>
+      value="<%= band.id %>">
+        <%= band.name %>
+      </option>
+    <% end %>
+  </select>
+
+  <br>
+  <br>
+
+  <label>
+    <input
+      type="radio"
+      name="album[album_type]"
+      value="live"
+      <%= @album.album_type == "live" ? "checked" : "" %>>
+      Live
+  </label>
+  <label>
+    <input
+      type="radio"
+      name="album[album_type]"
+      value="studio"
+      <%= album.album_type == "studio" ? "checked" : "" %>>
+    Studio
+  </label>
+
+  <br>
+  <br>
+
+  <label for="year">Year</label>
+  <input
+    type="number"
+    id="year"
+    name="album[year]"
+    value="<%= album.year %>">
+
+  <br>
+  <br>
+
+  <%= submit_button %>
+</form>

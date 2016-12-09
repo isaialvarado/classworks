@@ -1,5 +1,6 @@
 class AlbumsController < ApplicationController
-  before_action :get_album, only: [:new, :show, :edit, :update, :destroy]
+  before_action :get_album, only: [:show, :edit, :update, :destroy]
+  before_action :get_band, only: [:new, :edit, :update, :destroy]
   before_action :require_login
 
   def show
@@ -11,7 +12,7 @@ class AlbumsController < ApplicationController
   end
 
   def new
-    @band = Band.find_by(id: params[:band_id])
+    @album = Album.new
 
     render :new
   end
@@ -22,6 +23,8 @@ class AlbumsController < ApplicationController
     if album.save
       redirect_to album_url(album)
     else
+      @band = Band.find_by(id: params["album"]["band_id"])
+      @album = Album.new
       flash.now[:message] = album.errors.full_messages
       render :new
     end
@@ -41,9 +44,8 @@ class AlbumsController < ApplicationController
   end
 
   def destroy
-    band = @album.band_id
     @album.destroy
-    redirect_to band_url(band)
+    redirect_to band_url(@band)
   end
 
   private
@@ -52,7 +54,15 @@ class AlbumsController < ApplicationController
     @album = Album.find_by(id: params[:id])
   end
 
+  def get_band
+    if @album
+      @band = @album.band
+    else
+      @band = Band.find_by(id: params[:band_id])
+    end
+  end
+
   def album_params
-    params.require(:album).permit(:name, :band_id)
+    params.require(:album).permit(:name, :band_id, :album_type, :year)
   end
 end
