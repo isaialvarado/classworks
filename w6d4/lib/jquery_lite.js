@@ -47,13 +47,20 @@
 	const DOMNodeCollection = __webpack_require__(1);
 
 	window.$l = function(content) {
+	  const queue = [];
 
 	  if (content instanceof HTMLElement) {
 	    return new DOMNodeCollection([content]);
+	  } else if (content instanceof Function) {
+	    queue.push(content);
 	  } else {
 	    const elements = Array.from(document.querySelectorAll(content));
 	    return new DOMNodeCollection(elements);
 	  }
+
+	  // document.addEventListener("DOMContentLoaded"), function(event) {
+	  //
+	  // };
 	};
 
 
@@ -159,6 +166,20 @@
 	    });
 
 	    this.htmlElements = [];
+	  }
+
+	  on(type, callback) {
+	    this.htmlElements.forEach(el => {
+	      el.addEventListener(type, callback);
+	      el.events = {};
+	      el.events[type] = callback;
+	    });
+	  }
+
+	  off(type) {
+	    this.htmlElements.forEach(el => {
+	      el.removeEventListener(type, el.events[type]);
+	    });
 	  }
 	}
 

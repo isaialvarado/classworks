@@ -97,6 +97,20 @@ class DOMNodeCollection {
 
     this.htmlElements = [];
   }
+
+  on(type, callback) {
+    this.htmlElements.forEach(el => {
+      el.addEventListener(type, callback);
+      el.events = {};
+      el.events[type] = callback;
+    });
+  }
+
+  off(type) {
+    this.htmlElements.forEach(el => {
+      el.removeEventListener(type, el.events[type]);
+    });
+  }
 }
 
 module.exports = DOMNodeCollection;
