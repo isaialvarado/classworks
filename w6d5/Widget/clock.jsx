@@ -7,23 +7,33 @@ class Clock extends React.Component {
   }
 
   componentDidMount() {
-    window.setInterval(() => {
+    this.timerID = setInterval(() => {
       this.incrementTime();
     }, 1000);
   }
 
+  componentWillUnmount() {
+    clearInterval(this.timerID);
+  }
+
   incrementTime() {
-    const currentDate = this.state.date;
-    const newDate = currentDate.setSeconds(currentDate.getSeconds() + 1);
-    debugger;
-    this.setState({date: newDate});
+    this.setState({date: new Date()});
   }
 
   render() {
     return (
-      <div>
-        <h1>Hello, world!</h1>
-        <h2>It is {this.state.date.toLocaleTimeString()}.</h2>
+      <div className="clock">
+        <h1 className="widgetName">Clock</h1>
+        <div className="clockData">
+          <ul>
+            <li>Time:</li>
+            <li>{this.state.date.toLocaleTimeString()}</li>
+          </ul>
+          <ul>
+            <li>Date:</li>
+            <li>{this.state.date.toDateString()}</li>
+          </ul>
+        </div>
       </div>
     );
   }
