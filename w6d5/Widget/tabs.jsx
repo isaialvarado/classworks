@@ -9,24 +9,25 @@ class Tabs extends React.Component {
     this.tabContent = this.tabContent.bind(this);
   }
 
-  componentDidMount() {
-    const firstTab = document.querySelector(".tabHeaders li");
-    firstTab.classList.add("tabSelected");
-  }
-
   onClick(index, e) {
-    const lastTab = document.querySelector(".tabSelected");
-    lastTab && lastTab.classList.remove("tabSelected");
-    e.currentTarget.classList.add("tabSelected");
     this.setState({index});
   }
 
   tabHeaders() {
-    const headers = this.props.tabs.map((el, index) => (
-      <li key={index} onClick={this.onClick.bind(this, index)}>
-        <p>{el.title}</p>
-      </li>
-    ));
+    const headers = this.props.tabs.map((el, index) => {
+      let klass = "";
+      if (index === this.state.index) {
+        klass = "tabSelected";
+      }
+
+      return (
+        <li
+          key={index}
+          className={klass}
+          onClick={this.onClick.bind(this, index)}>
+          {el.title}
+        </li>);
+    });
 
     return (
       <ul className="tabHeaders">

@@ -25,14 +25,14 @@ class Clock extends React.Component {
       <div className="clock">
         <h1 className="widgetName">Clock</h1>
         <div className="clockData">
-          <ul>
-            <li>Time:</li>
-            <li>{this.state.date.toLocaleTimeString()}</li>
-          </ul>
-          <ul>
-            <li>Date:</li>
-            <li>{this.state.date.toDateString()}</li>
-          </ul>
+          <div>
+            <p>Time:</p>
+            <p>{this.state.date.toLocaleTimeString()}</p>
+          </div>
+          <div>
+            <p>Date:</p>
+            <p>{this.state.date.toDateString()}</p>
+          </div>
         </div>
       </div>
     );

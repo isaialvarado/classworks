@@ -22,7 +22,12 @@ class Autocomplete extends React.Component {
       <div className="autocomplete">
         <h1 className="widgetName">Autocomplete</h1>
         <div className="autocompleteData">
-          <input type="text" value={this.state.input} onChange={this.updateState} placeholder="Search..."></input>
+          <input
+            type="text"
+            value={this.state.input}
+            onChange={this.updateState}
+            placeholder="Search...">
+          </input>
           <ul onClick={this.updateState}>
             {list}
           </ul>

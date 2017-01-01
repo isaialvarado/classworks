@@ -37,10 +37,10 @@ class Weather extends React.Component {
     return (
       <div className="weather">
         <h1 className="widgetName">Weather</h1>
-        <ul className="weatherData">
-          <li>{this.state.city}</li>
-          <li>{this.state.temperature}</li>
-        </ul>
+        <div className="weatherData">
+          <p>{this.state.city}</p>
+          <p>{this.state.temperature}</p>
+        </div>
       </div>
     );
   }
